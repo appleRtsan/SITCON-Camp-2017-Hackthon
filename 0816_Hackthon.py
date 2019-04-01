@@ -19,8 +19,8 @@ from watson_developer_cloud import VisualRecognitionV3
 
 def get_img(msg):
     url = msg["text"][8:]
-    if url[:4] != "http":
-        url = "http://" + url
+    if url[:5] != "https":
+        url = "https://" + url
     
     raw = requests.get(url)
     soup = BeautifulSoup(raw.text, "html.parser")
@@ -33,7 +33,7 @@ def get_img(msg):
     
         imgUrl = str(d.get("src"))
         if imgUrl[:2] == "//":
-            imgUrl = "http:" + imgUrl
+            imgUrl = "https:" + imgUrl
         elif imgUrl[:4] != "http":
             imgUrl = url + imgUrl
         
